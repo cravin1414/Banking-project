@@ -144,7 +144,7 @@ def dashboard():
     </div>
     """, unsafe_allow_html=True)
    
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5= st.columns(5)
    
     with col1:
         st.markdown("""
@@ -179,11 +179,19 @@ def dashboard():
             <p>₹15,000 / ₹20,000</p>
         </div>
         """, unsafe_allow_html=True)
-   
-    st.markdown("---")
+        
+    with col5:
+        st.markdown("""
+         <div class="metric-card">
+            <h3 style="color: #2a5298;">About bank</h3>
+            <h2 style="color: #fd7e14;">75%</h2>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("---")            
+                    
    
     st.markdown("### ⚡ Quick Actions")
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4 , col5 = st.columns(5)
    
     with col1:
         if st.button("💸 Transfer Money", key="dashboard_transfer", use_container_width=True):
@@ -204,7 +212,11 @@ def dashboard():
         if st.button("🎯 Set Goals", key="dashboard_goals", use_container_width=True):
             st.session_state.page = "goals"
             st.rerun()
-   
+    with col5:
+        if st.button("  About",key="dashboard_about",use_container_width=True):
+            st.session_state.page="about"
+            st.rerun()
+
     col1, col2 = st.columns(2)
    
     with col1:
@@ -337,7 +349,99 @@ def bills_page():
            
             if submitted and bill_amount > 0:
                 st.success(f"Bill payment of ₹{bill_amount:,.2f} processed successfully!")
- 
+def About_page():
+       st.markdown("#### About")
+       about=["""1. KYC Compliance (Know Your Customer)
+Mandatory under AML (Anti-Money Laundering) laws.
+
+Requires:
+
+Proof of Identity (e.g., Aadhaar, Passport, Driving License)
+
+Proof of Address
+
+Recent Photograph
+
+2. Minimum Balance Requirement
+Some savings accounts require a minimum monthly balance.
+
+Non-maintenance may attract charges.
+
+3. Transaction Limits
+Daily withdrawal and transfer limits (especially for online banking, ATMs).
+
+Regulated by RBI (India) or FDIC/FinCEN (US), etc.
+
+4. Interest Rates and Charges
+Banks must disclose:
+
+Interest on savings/current/fixed accounts
+
+Loan interest rates
+
+Processing fees, penalties, etc.
+
+5. Confidentiality and Privacy
+Customer data is protected under banking secrecy laws.
+
+Banks cannot share your financial data without consent, except with authorized authorities.
+
+6. Account Monitoring and Reporting
+Suspicious activity is reported to authorities (e.g., FIU-IND in India, FinCEN in the US).
+
+Large transactions (over ₹10 lakh or $10,000) may be reported automatically.
+
+7. Dormant Accounts
+Accounts inactive for over 2 years may be marked dormant.
+
+Requires re-KYC or written request to reactivate.
+
+8. No Discrimination
+Banks cannot discriminate based on caste, religion, gender, age, or economic status.
+
+📝 Steps to Open a Bank Account
+🔹 Step 1: Choose the Type of Account
+Savings Account
+
+Current Account (for business)
+
+Fixed Deposit / Recurring Deposit
+
+Student or Senior Citizen Accounts
+
+🔹 Step 2: Visit the Bank or Apply Online
+Most banks offer online applications via their websites or mobile apps.
+
+You may also visit a nearby branch.
+
+🔹 Step 3: Fill the Account Opening Form
+Provide personal details, nominee information, and select services (ATM, internet banking, cheque book, etc.).
+
+🔹 Step 4: Submit KYC Documents
+ID Proof (e.g., Aadhaar, Passport)
+
+Address Proof (Utility bill, Aadhaar, etc.)
+
+Photographs
+
+PAN Card (mandatory for Indian accounts)
+
+🔹 Step 5: Initial Deposit
+Some accounts require an initial deposit to open the account (e.g., ₹500 or $50).
+
+Zero-balance accounts like Jan Dhan Yojana in India don't need this.
+
+🔹 Step 6: Verification
+Bank will verify documents and your identity.
+
+May involve a quick in-person or video KYC.
+
+🔹 Step 7: Receive Welcome Kit
+Includes: passbook, debit card, cheque book, and customer ID.
+
+You'll also get login credentials for online banking."""
+
+]
 def logout():
     st.session_state.logged_in = False
     st.session_state.current_user = None
@@ -367,7 +471,9 @@ def main():
             if st.button("💰 Pay Bills", key="sidebar_bills", use_container_width=True):
                 st.session_state.page = "bills"
                 st.rerun()
-           
+            if st.button("About", key="sidebar_about", use_container_width=True):
+                st.session_state.page = "about"
+                st.rerun()
             st.markdown("---")
            
             user = st.session_state.users[st.session_state.current_user]
